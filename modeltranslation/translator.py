@@ -513,6 +513,10 @@ class Translator(object):
         Returns an instance of translation options with translated fields
         defined for the ``model`` and inherited from superclasses.
         """
+        if isinstance(model, str):
+            app_label, model_name = model.split('.')
+            model = apps.get_model(app_label=app_label, model_name=model_name)
+
         if model._deferred:
             model = model._meta.proxy_for_model
         if model not in self._registry:
@@ -540,6 +544,10 @@ class Translator(object):
         Thin wrapper around ``_get_options_for_model`` to preserve the
         semantic of throwing exception for models not directly registered.
         """
+        if isinstance(model, str):
+            app_label, model_name = model.split('.')
+            model = apps.get_model(app_label=app_label, model_name=model_name)
+
         opts = self._get_options_for_model(model)
         if not opts.registered and not opts.related:
             raise NotRegistered('The model "%s" is not registered for '
