@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Manager, ForeignKey, OneToOneField
 from django.db.models.base import ModelBase
 from django.db.models.signals import post_init
-
+from django.apps import apps
 from modeltranslation import settings as mt_settings
 from modeltranslation.fields import (NONE, create_translation_field, TranslationFieldDescriptor,
                                      TranslatedRelationIdDescriptor,
